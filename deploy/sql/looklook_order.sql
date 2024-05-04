@@ -13,7 +13,7 @@
 
  Date: 10/03/2022 17:15:38
 */
-
+CREATE DATABASE looklook_order     DEFAULT CHARACTER SET utf8mb4     DEFAULT COLLATE utf8mb4_unicode_ci;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 

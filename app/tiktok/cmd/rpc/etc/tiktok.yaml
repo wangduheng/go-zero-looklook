@@ -1,0 +1,35 @@
+
+Name: tiktok-rpc
+ListenOn: 0.0.0.0:2005
+Mode: dev
+
+
+#Monitoring
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4009
+  Path: /metrics
+
+#Link Tracking
+Telemetry:
+  Name: tiktok-rpc
+  Endpoint: http://jaeger:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
+
+Log:
+  ServiceName: tiktok-rpc
+  Level: info
+
+Redis:
+  Host: redis-look:6379
+  Type: node
+  Pass: G62m50oigInC30sf
+  Key: tiktok-rpc
+DB:
+  DataSource: root:PXDN93VRKUm8TeE7@tcp(mysql-look:3306)/looklook_tiktok1?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+Cache:
+  - Host: redis-look:6379
+    Pass: G62m50oigInC30sf
+
+

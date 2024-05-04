@@ -18,6 +18,7 @@ func Mqs(c config.Config) []service.Service {
 
 	//kq ：pub sub
 	services = append(services, KqMqs(c, ctx, svcContext)...)
+	// services = append(services, AsynqMqs(c, ctx, svcContext)...)
 
 	return services
 }

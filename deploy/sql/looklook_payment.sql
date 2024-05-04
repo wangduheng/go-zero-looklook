@@ -13,6 +13,7 @@
 
  Date: 10/03/2022 17:14:12
 */
+CREATE DATABASE looklook_payment    DEFAULT CHARACTER SET utf8mb4     DEFAULT COLLATE utf8mb4_unicode_ci;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;

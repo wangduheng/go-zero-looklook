@@ -7,6 +7,9 @@ type DeferCloseHomestayOrderPayload struct {
 	Sn string
 }
 
+type DeferCloseTiktokRecord struct {
+	ID int64
+}
 
 // PaySuccessNotifyUserPayload pay success notify user
 type PaySuccessNotifyUserPayload struct {

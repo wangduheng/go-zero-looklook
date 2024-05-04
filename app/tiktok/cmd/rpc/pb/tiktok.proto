@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+package pb;
+
+message LiveData{
+  string openUrl = 1;
+  string info = 2;
+  string name = 3;
+  int64 id=4;
+  int64 createTime=5;
+  int64 openTime=6;
+  int64 isNeedFork=7;
+
+}
+
+message SaveLiveReq {
+  string openUrl = 1;
+  string info = 2;
+  string name = 3;
+  int64 openTime=4;
+  int64 isNeedFork=5;
+}
+message SaveLiveResp {
+  int64  id = 2;
+}
+
+message FetchLiveReq {
+  int64 lastSecond=1;
+  int64 userId=2;
+}
+message FetchLiveResp {
+  repeated LiveData list = 1;
+}
+
+message DeleteLiveReq{
+  int64  id = 1;
+}
+message DeleteLiveResp{
+  int64  id = 1;
+}
+
+
+//service
+service tiktok {
+  rpc saveLive(SaveLiveReq) returns(SaveLiveResp);
+  rpc fetchLives(FetchLiveReq) returns(FetchLiveResp);
+  rpc DeleteLiveOne(DeleteLiveReq) returns(DeleteLiveResp);
+
+}
