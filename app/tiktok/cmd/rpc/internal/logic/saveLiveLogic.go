@@ -43,7 +43,10 @@ func (l *SaveLiveLogic) SaveLive(in *pb.SaveLiveReq) (*pb.SaveLiveResp, error) {
 	if err != nil {
 		return nil, err
 	}
-	openTime := getOpenTime(redPacket)
+	openDuration := getOpenDuration(redPacket)
+	currentTime := time.Now()
+	openTime := currentTime.Add(openDuration)
+
 	isNeedFork := checkNeedFork(redPacket)
 	insertResult, err := l.svcCtx.TiktokModel.Insert(l.ctx, &model.DouyinLive{
 		OpenUrl:    url,
@@ -64,7 +67,19 @@ func (l *SaveLiveLogic) SaveLive(in *pb.SaveLiveReq) (*pb.SaveLiveResp, error) {
 	if err != nil {
 		logx.WithContext(l.ctx).Errorf("create defer close tikok task json Marshal fail err :%+v , sn : %s", err, lastId)
 	} else {
-		_, err = l.svcCtx.AsynqClient.Enqueue(asynq.NewTask(jobtype.ScheduleTiktokCloseRecord, payload), asynq.ProcessIn(CloseTiktokTimeMinutes*time.Minute))
+		_, err = l.svcCtx.AsynqClient.Enqueue(asynq.NewTask(jobtype.ScheduleTiktokCloseRecord, payload), asynq.ProcessIn(openDuration))
+		if err != nil {
+			logx.WithContext(l.ctx).Errorf("create defer close tikok task insert queue fail err :%+v , sn : %s", err, lastId)
+		}
+	}
+
+	//2、Delayed open of order tasks.
+
+	payload2, err := json.Marshal(jobtype.DeferOpenTiktokRecord{ID: lastId})
+	if err != nil {
+		logx.WithContext(l.ctx).Errorf("create defer close tikok task json Marshal fail err :%+v , sn : %s", err, lastId)
+	} else {
+		_, err = l.svcCtx.AsynqClient.Enqueue(asynq.NewTask(jobtype.ScheduleTiktokOpenRecord, payload2), asynq.ProcessIn(openDuration-30*time.Second))
 		if err != nil {
 			logx.WithContext(l.ctx).Errorf("create defer close tikok task insert queue fail err :%+v , sn : %s", err, lastId)
 		}
@@ -89,12 +104,10 @@ func tranfOpenUrl(data string) string {
 	return open
 }
 
-func getOpenTime(redPacket types.RedPacket) time.Time {
+func getOpenDuration(redPacket types.RedPacket) time.Duration {
 	minutes, second, _ := parseCountdownString(redPacket.Time)
 	duration := time.Duration(minutes)*time.Minute + time.Duration(second)*time.Second
-	currentTime := time.Now()
-	resultTime := currentTime.Add(duration)
-	return resultTime
+	return duration - 4*time.Second
 
 }
 

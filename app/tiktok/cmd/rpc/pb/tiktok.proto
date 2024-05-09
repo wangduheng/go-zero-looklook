@@ -41,11 +41,19 @@ message DeleteLiveResp{
   int64  id = 1;
 }
 
+message FindLiveReq{
+  int64  id = 1;
+}
+message FindLiveResp{
+  LiveData  liveDate = 1;
+}
+
 
 //service
 service tiktok {
   rpc saveLive(SaveLiveReq) returns(SaveLiveResp);
   rpc fetchLives(FetchLiveReq) returns(FetchLiveResp);
   rpc DeleteLiveOne(DeleteLiveReq) returns(DeleteLiveResp);
+  rpc FindLiveOne(FindLiveReq) returns(FindLiveResp);
 
 }

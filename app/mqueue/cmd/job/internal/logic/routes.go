@@ -27,7 +27,8 @@ func (l *CronJob) Register() *asynq.ServeMux {
 
 	//scheduler job
 	mux.Handle(jobtype.ScheduleSettleRecord, NewSettleRecordHandler(l.svcCtx))
-	mux.Handle(jobtype.ScheduleTiktokCloseRecord, NewTiktokRecordHandler(l.svcCtx))
+	mux.Handle(jobtype.ScheduleTiktokCloseRecord, NewTiktokRecordCloseHandler(l.svcCtx))
+	mux.Handle(jobtype.ScheduleTiktokOpenRecord, NewTiktokRecordOpenHandler(l.svcCtx))
 
 	//defer job
 	mux.Handle(jobtype.DeferCloseHomestayOrder, NewCloseHomestayOrderHandler(l.svcCtx))

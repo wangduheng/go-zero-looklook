@@ -17,6 +17,8 @@ type (
 	DeleteLiveResp = pb.DeleteLiveResp
 	FetchLiveReq   = pb.FetchLiveReq
 	FetchLiveResp  = pb.FetchLiveResp
+	FindLiveReq    = pb.FindLiveReq
+	FindLiveResp   = pb.FindLiveResp
 	LiveData       = pb.LiveData
 	SaveLiveReq    = pb.SaveLiveReq
 	SaveLiveResp   = pb.SaveLiveResp
@@ -25,6 +27,7 @@ type (
 		SaveLive(ctx context.Context, in *SaveLiveReq, opts ...grpc.CallOption) (*SaveLiveResp, error)
 		FetchLives(ctx context.Context, in *FetchLiveReq, opts ...grpc.CallOption) (*FetchLiveResp, error)
 		DeleteLiveOne(ctx context.Context, in *DeleteLiveReq, opts ...grpc.CallOption) (*DeleteLiveResp, error)
+		FindLiveOne(ctx context.Context, in *FindLiveReq, opts ...grpc.CallOption) (*FindLiveResp, error)
 	}
 
 	defaultTiktok struct {
@@ -51,4 +54,9 @@ func (m *defaultTiktok) FetchLives(ctx context.Context, in *FetchLiveReq, opts .
 func (m *defaultTiktok) DeleteLiveOne(ctx context.Context, in *DeleteLiveReq, opts ...grpc.CallOption) (*DeleteLiveResp, error) {
 	client := pb.NewTiktokClient(m.cli.Conn())
 	return client.DeleteLiveOne(ctx, in, opts...)
+}
+
+func (m *defaultTiktok) FindLiveOne(ctx context.Context, in *FindLiveReq, opts ...grpc.CallOption) (*FindLiveResp, error) {
+	client := pb.NewTiktokClient(m.cli.Conn())
+	return client.FindLiveOne(ctx, in, opts...)
 }

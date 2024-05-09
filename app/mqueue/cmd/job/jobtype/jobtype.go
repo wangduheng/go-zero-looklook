@@ -11,3 +11,4 @@ const MsgPaySuccessNotifyUser = "msg:pay_success:notify_user"
 
 // 关闭超时记录
 const ScheduleTiktokCloseRecord = "schedule:tiktok_record:close"
+const ScheduleTiktokOpenRecord = "schedule:tiktok_record:open"

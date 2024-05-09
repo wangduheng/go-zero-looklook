@@ -36,3 +36,8 @@ type RedPacket struct {
 	CT            string   `json:"ct"`            // 假设日期时间以字符串形式存储
 }
 
+
+type ReceiveReq struct {
+	Id int64 `json:"Id"`
+}
+

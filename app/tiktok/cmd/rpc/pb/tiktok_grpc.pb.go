@@ -22,6 +22,7 @@ const (
 	Tiktok_SaveLive_FullMethodName      = "/pb.tiktok/saveLive"
 	Tiktok_FetchLives_FullMethodName    = "/pb.tiktok/fetchLives"
 	Tiktok_DeleteLiveOne_FullMethodName = "/pb.tiktok/DeleteLiveOne"
+	Tiktok_FindLiveOne_FullMethodName   = "/pb.tiktok/FindLiveOne"
 )
 
 // TiktokClient is the client API for Tiktok service.
@@ -31,6 +32,7 @@ type TiktokClient interface {
 	SaveLive(ctx context.Context, in *SaveLiveReq, opts ...grpc.CallOption) (*SaveLiveResp, error)
 	FetchLives(ctx context.Context, in *FetchLiveReq, opts ...grpc.CallOption) (*FetchLiveResp, error)
 	DeleteLiveOne(ctx context.Context, in *DeleteLiveReq, opts ...grpc.CallOption) (*DeleteLiveResp, error)
+	FindLiveOne(ctx context.Context, in *FindLiveReq, opts ...grpc.CallOption) (*FindLiveResp, error)
 }
 
 type tiktokClient struct {
@@ -68,6 +70,15 @@ func (c *tiktokClient) DeleteLiveOne(ctx context.Context, in *DeleteLiveReq, opt
 	return out, nil
 }
 
+func (c *tiktokClient) FindLiveOne(ctx context.Context, in *FindLiveReq, opts ...grpc.CallOption) (*FindLiveResp, error) {
+	out := new(FindLiveResp)
+	err := c.cc.Invoke(ctx, Tiktok_FindLiveOne_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TiktokServer is the server API for Tiktok service.
 // All implementations must embed UnimplementedTiktokServer
 // for forward compatibility
@@ -75,6 +86,7 @@ type TiktokServer interface {
 	SaveLive(context.Context, *SaveLiveReq) (*SaveLiveResp, error)
 	FetchLives(context.Context, *FetchLiveReq) (*FetchLiveResp, error)
 	DeleteLiveOne(context.Context, *DeleteLiveReq) (*DeleteLiveResp, error)
+	FindLiveOne(context.Context, *FindLiveReq) (*FindLiveResp, error)
 	mustEmbedUnimplementedTiktokServer()
 }
 
@@ -90,6 +102,9 @@ func (UnimplementedTiktokServer) FetchLives(context.Context, *FetchLiveReq) (*Fe
 }
 func (UnimplementedTiktokServer) DeleteLiveOne(context.Context, *DeleteLiveReq) (*DeleteLiveResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLiveOne not implemented")
+}
+func (UnimplementedTiktokServer) FindLiveOne(context.Context, *FindLiveReq) (*FindLiveResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindLiveOne not implemented")
 }
 func (UnimplementedTiktokServer) mustEmbedUnimplementedTiktokServer() {}
 
@@ -158,6 +173,24 @@ func _Tiktok_DeleteLiveOne_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Tiktok_FindLiveOne_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindLiveReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TiktokServer).FindLiveOne(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Tiktok_FindLiveOne_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TiktokServer).FindLiveOne(ctx, req.(*FindLiveReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Tiktok_ServiceDesc is the grpc.ServiceDesc for Tiktok service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +209,10 @@ var Tiktok_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteLiveOne",
 			Handler:    _Tiktok_DeleteLiveOne_Handler,
+		},
+		{
+			MethodName: "FindLiveOne",
+			Handler:    _Tiktok_FindLiveOne_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -36,3 +36,8 @@ func (s *TiktokServer) DeleteLiveOne(ctx context.Context, in *pb.DeleteLiveReq) 
 	l := logic.NewDeleteLiveOneLogic(ctx, s.svcCtx)
 	return l.DeleteLiveOne(in)
 }
+
+func (s *TiktokServer) FindLiveOne(ctx context.Context, in *pb.FindLiveReq) (*pb.FindLiveResp, error) {
+	l := logic.NewFindLiveOneLogic(ctx, s.svcCtx)
+	return l.FindLiveOne(in)
+}
