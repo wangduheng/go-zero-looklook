@@ -11,16 +11,16 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func SaveLiveHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func SaveResultHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.SaveLiveReq
+		var req types.SaveResultReq
 		if err := httpx.Parse(r, &req); err != nil {
 			result.ParamErrorResult(r, w, err)
 			return
 		}
 
-		l := tiktok.NewSaveLiveLogic(r.Context(), svcCtx)
-		resp, err := l.SaveLive(&req)
+		l := tiktok.NewSaveResultLogic(r.Context(), svcCtx)
+		resp, err := l.SaveResult(&req)
 		result.HttpResult(r, w, resp, err)
 	}
 }

@@ -41,3 +41,8 @@ func (s *TiktokServer) FindLiveOne(ctx context.Context, in *pb.FindLiveReq) (*pb
 	l := logic.NewFindLiveOneLogic(ctx, s.svcCtx)
 	return l.FindLiveOne(in)
 }
+
+func (s *TiktokServer) SaveResult(ctx context.Context, in *pb.SaveResultReq) (*pb.SaveResultResp, error) {
+	l := logic.NewSaveResultLogic(ctx, s.svcCtx)
+	return l.SaveResult(in)
+}

@@ -21,6 +21,14 @@ type (
 	FetchLiveResp {
 		List []TitokLive `json:"list"`
 	}
+
+	SaveResultReq {
+		Id   int64  `json:"id"`
+		Name string `json:"name"`
+	}
+	SaveResultResp {
+		Content string `json:"content"`
+	}
 )
 
 // 定义 HTTP 服务
@@ -46,4 +54,7 @@ service tiktok {
 
 	@handler ping
 	get /ping returns (string)
+
+	@handler saveResult
+	post /saveResult(SaveResultReq)returns (SaveResultResp)
 }

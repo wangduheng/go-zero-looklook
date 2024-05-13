@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	tiktok "looklook/app/tiktok/cmd/api/internal/handler/tiktok"
-
 	"looklook/app/tiktok/cmd/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -30,12 +29,15 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: tiktok.PingHandler(serverCtx),
 			},
 			{
-				Method:http.MethodGet,
-				Path:"/ws",
-				Handler:tiktok.WsHandler(serverCtx),
-			
+				Method:  http.MethodPost,
+				Path:    "/saveResult",
+				Handler: tiktok.SaveResultHandler(serverCtx),
 			},
-			
+			{
+				Method:  http.MethodGet,
+				Path:    "/ws",
+				Handler:tiktok.WsHandler(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/tiktok/v1"),
@@ -43,14 +45,13 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			
-			{
-				Method:http.MethodPost,
-				Path:"/receive",
-				Handler:tiktok.ReceiveHandler(serverCtx),
-			
-			},
-		},
-		rest.WithPrefix("/tiktok/v1"),
-	)
-	
+			  {
+						Method:http.MethodPost,
+						  Path:"/receive",
+					  Handler:tiktok.ReceiveHandler(serverCtx),
+			   
+			  },
+	   },
+		  rest.WithPrefix("/tiktok/v1"),
+ )    
 }

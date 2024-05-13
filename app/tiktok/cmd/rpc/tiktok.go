@@ -8,6 +8,7 @@ import (
 	"looklook/app/tiktok/cmd/rpc/internal/server"
 	"looklook/app/tiktok/cmd/rpc/internal/svc"
 	"looklook/app/tiktok/cmd/rpc/pb"
+	"looklook/common/interceptor/rpcserver"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
@@ -32,6 +33,8 @@ func main() {
 			reflection.Register(grpcServer)
 		}
 	})
+	s.AddUnaryInterceptors(rpcserver.LoggerInterceptor)
+
 	defer s.Stop()
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)

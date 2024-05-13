@@ -47,6 +47,13 @@ message FindLiveReq{
 message FindLiveResp{
   LiveData  liveDate = 1;
 }
+message SaveResultReq{
+  int64  id = 1;
+  string name=2;
+}
+message SaveResultResp{
+  string content=1;
+}
 
 
 //service
@@ -55,5 +62,6 @@ service tiktok {
   rpc fetchLives(FetchLiveReq) returns(FetchLiveResp);
   rpc DeleteLiveOne(DeleteLiveReq) returns(DeleteLiveResp);
   rpc FindLiveOne(FindLiveReq) returns(FindLiveResp);
+  rpc SaveResult(SaveResultReq) returns(SaveResultResp);
 
 }

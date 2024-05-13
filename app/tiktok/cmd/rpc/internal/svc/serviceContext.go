@@ -14,7 +14,8 @@ type ServiceContext struct {
 	RedisClient *redis.Redis
 	AsynqClient *asynq.Client
 
-	TiktokModel model.DouyinLiveModel
+	TiktokModel     model.DouyinLiveModel
+	LiveResultModel model.LiveResultModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -28,6 +29,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		}),
 		AsynqClient: newAsynqClient(c),
 
-		TiktokModel: model.NewDouyinLiveModel(sqlConn, c.Cache),
+		TiktokModel:     model.NewDouyinLiveModel(sqlConn, c.Cache),
+		LiveResultModel: model.NewLiveResultModel(sqlConn, c.Cache),
 	}
 }

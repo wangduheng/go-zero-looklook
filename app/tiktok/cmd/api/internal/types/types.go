@@ -8,8 +8,7 @@ type TitokLive struct {
 	Id         int64  `db:"id"`
 	CreateTime int64  `db:"create_time"`
 	OpenTime int64    `db:"open_string"`
-	IsNeedFork int64 
-
+	IsNeedFork int64
 }
 
 type SaveLiveReq struct {
@@ -27,17 +26,21 @@ type FetchLiveResp struct {
 	List []TitokLive `json:"list"`
 }
 
+type SaveResultReq struct {
+	Id   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
+type SaveResultResp struct {
+	Content string `json:"content"`
+}
 type RedPacket struct {
 	Name      string `json:"name"`
 	JoinCount string `json:"joinCount"`
 	Time      string `json:"time"`
-	// TotalReds     string   `json:"totalReds"`
-	JoinCondition []string `json:"joinCondition"` // 假设这是一个字符串数组
-	CT            string   `json:"ct"`            // 假设日期时间以字符串形式存储
+	JoinCondition []string `json:"joinCondition"`
+	CT            string   `json:"ct"` 
 }
-
-
 type ReceiveReq struct {
 	Id int64 `json:"Id"`
 }
-

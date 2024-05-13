@@ -22,12 +22,15 @@ type (
 	LiveData       = pb.LiveData
 	SaveLiveReq    = pb.SaveLiveReq
 	SaveLiveResp   = pb.SaveLiveResp
+	SaveResultReq  = pb.SaveResultReq
+	SaveResultResp = pb.SaveResultResp
 
 	Tiktok interface {
 		SaveLive(ctx context.Context, in *SaveLiveReq, opts ...grpc.CallOption) (*SaveLiveResp, error)
 		FetchLives(ctx context.Context, in *FetchLiveReq, opts ...grpc.CallOption) (*FetchLiveResp, error)
 		DeleteLiveOne(ctx context.Context, in *DeleteLiveReq, opts ...grpc.CallOption) (*DeleteLiveResp, error)
 		FindLiveOne(ctx context.Context, in *FindLiveReq, opts ...grpc.CallOption) (*FindLiveResp, error)
+		SaveResult(ctx context.Context, in *SaveResultReq, opts ...grpc.CallOption) (*SaveResultResp, error)
 	}
 
 	defaultTiktok struct {
@@ -59,4 +62,9 @@ func (m *defaultTiktok) DeleteLiveOne(ctx context.Context, in *DeleteLiveReq, op
 func (m *defaultTiktok) FindLiveOne(ctx context.Context, in *FindLiveReq, opts ...grpc.CallOption) (*FindLiveResp, error) {
 	client := pb.NewTiktokClient(m.cli.Conn())
 	return client.FindLiveOne(ctx, in, opts...)
+}
+
+func (m *defaultTiktok) SaveResult(ctx context.Context, in *SaveResultReq, opts ...grpc.CallOption) (*SaveResultResp, error) {
+	client := pb.NewTiktokClient(m.cli.Conn())
+	return client.SaveResult(ctx, in, opts...)
 }

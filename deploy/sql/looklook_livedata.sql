@@ -35,3 +35,13 @@ CREATE TABLE `douyin_live` (
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='抖音直播礼包';
 
+DROP TABLE IF EXISTS `live_result`;
+CREATE TABLE `live_result` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `uid` bigint NOT NULL,
+  `lid` bigint NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '主播',
+  PRIMARY KEY (`id`)
+  
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='礼包结果';
+

@@ -31,4 +31,6 @@
 | usercenter-rpc   | 4009            |
 | mqueue-job       | 4010            |
 | mqueue-scheduler | 4011            |
+| tiktok-api       | 4012           |
+| tiktok-rpc       | 4013           |
 
