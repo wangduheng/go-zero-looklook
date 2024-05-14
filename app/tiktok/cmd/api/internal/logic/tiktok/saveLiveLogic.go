@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"regexp"
+	"strings"
 	"time"
 
 	"looklook/app/tiktok/cmd/api/internal/svc"
@@ -82,7 +83,7 @@ func getOpenTime(redPacket types.RedPacket) time.Time {
 func checkNeedFork(edPacket types.RedPacket) int64 {
 	var res int64 = 0
 	for _, item := range edPacket.JoinCondition {
-		if item == "加入粉丝团" {
+		if item == "加入粉丝团" || strings.Contains(item, "粉丝团") || item == "分享直播间" {
 			res = 1
 			break
 		}
