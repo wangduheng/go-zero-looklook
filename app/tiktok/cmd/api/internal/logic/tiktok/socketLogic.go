@@ -43,7 +43,7 @@ func (l *SocketLogic) ResultsHandler(req *types.ReceiveReq) error {
 	if err != nil {
 		return err
 	}
-	logx.Error("write socket data: ", string(reqBytes))
+	logx.Info("write socket data: ", string(reqBytes))
 	if conn == nil {
 		logx.Error("没有上线用户")
 		return nil

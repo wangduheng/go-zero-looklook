@@ -31,7 +31,7 @@ func (l *DeleteLiveOneLogic) DeleteLiveOne(in *pb.DeleteLiveReq) (*pb.DeleteLive
 	if err != nil {
 		return nil, errors.Wrapf(xerr.NewErrCode(xerr.DB_ERROR), "Failed to delete tiktok live err : %v , in :%+v", err, in)
 	}
-	logx.Info("deleteLive for Id: ", in.Id)
+
 	return &pb.DeleteLiveResp{
 		Id: in.Id,
 	}, nil

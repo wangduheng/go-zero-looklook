@@ -33,7 +33,7 @@ func (l *FindLiveOneLogic) FindLiveOne(in *pb.FindLiveReq) (*pb.FindLiveResp, er
 	if err != nil && err != model.ErrNotFound {
 		return nil, errors.Wrapf(xerr.NewErrCode(xerr.DB_ERROR), "Failed to get tiktok's  err : %v , in :%+v", err, in)
 	}
-	logx.Error("FindLiveOne: ", data)
+
 	var resp pb.LiveData
 	if data != nil {
 		_ = copier.Copy(&resp, data)

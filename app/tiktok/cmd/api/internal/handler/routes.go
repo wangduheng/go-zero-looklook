@@ -46,9 +46,9 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			
 			  {
-						Method:http.MethodPost,
-						  Path:"/receive",
-					  Handler:tiktok.ReceiveHandler(serverCtx),
+					Method:http.MethodPost,
+					Path:"/receive",
+					Handler:tiktok.ReceiveHandler(serverCtx),
 			   
 			  },
 	   },
