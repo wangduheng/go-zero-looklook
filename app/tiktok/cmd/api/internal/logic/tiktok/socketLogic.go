@@ -45,7 +45,8 @@ func (l *SocketLogic) ResultsHandler(req *types.ReceiveReq) error {
 	}
 	logx.Error("write socket data: ", string(reqBytes))
 	if conn == nil {
-		return errors.New("conn 为空")
+		logx.Error("没有上线用户")
+		return nil
 	}
 	if err := conn.WriteMessage(websocket.TextMessage, reqBytes); err != nil {
 		return errors.Wrap(err, "Error sending data to WebSocket client")
